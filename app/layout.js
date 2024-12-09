@@ -1,15 +1,12 @@
-import localFont from "next/font/local";
+import { AuthProvider } from "@/context/AuthContext";
+import { Roboto } from 'next/font/google';
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const roboto = Roboto({
+  subsets: ['latin'],        // Specify the character subsets to load
+  weight: ['400', '500', '700'], // Choose the font weights you need
+  display: 'swap',           // Use 'swap' for better performance
+  variable: '--font-roboto', // Define a CSS variable for the font
 });
 
 export const metadata = {
@@ -19,11 +16,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="en" className={roboto.variable}>
+      <body className="h-screen overflow-hidden">
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );
